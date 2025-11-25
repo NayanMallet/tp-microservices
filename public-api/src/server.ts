@@ -1,9 +1,8 @@
-const express = require('express');
+import express, { Request, Response } from 'express';
 const app = express();
+const PORT = Number(process.env.PORT) || 3001;
 
-const PORT = process.env.PORT || 3001;
-
-app.get('/hello', (req, res) => {
+app.get('/hello', (req: Request, res: Response) => {
   res.json({ message: 'Hello from public API' });
 });
 

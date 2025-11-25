@@ -1,14 +1,25 @@
 version: '3.8'
-
 services:
   public-api:
-    build: ./public-api
+    build:
+      context: ./public-api
+      dockerfile: Dockerfile
     ports:
-      - '3001:3001'
+      - "3001:3001"
+    networks:
+      - microservices-net
 
   api-gateway:
-    build: ./api-gateway
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
     ports:
-      - '3000:3000'
+      - "3000:3000"
     depends_on:
       - public-api
+    networks:
+      - microservices-net
+
+networks:
+  microservices-net:
+    driver: bridge
