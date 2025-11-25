@@ -4,11 +4,11 @@ services:
   public-api:
     build: ./public-api
     ports:
-      - "3001:3001"
+      - '3001:3001'
 
   api-gateway:
     build: ./api-gateway
     ports:
-      - "3000:3000"
+      - '3000:3000'
     depends_on:
       - public-api
