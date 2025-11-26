@@ -1,26 +1,32 @@
 {
-  "name": "api-gateway",
+  "name": "user-service",
   "version": "1.0.0",
-  "main": "dist/server.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "dev": "nodemon --exec ts-node src/server.ts",
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc",
     "start": "node dist/server.js",
-    "format": "prettier --write .",
-    "lint": "eslint . --ext .ts"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
-    "express": "^4.18.2",
-    "http-proxy-middleware": "^3.0.5",
-    "shared": "workspace:*"
+    "express": "^5.1.0",
+    "morgan": "^1.10.1",
+    "shared": "workspace:*",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "@types/cors": "^2.8.19",
     "@types/dotenv": "^8.2.3",
     "@types/express": "^5.0.5",
-    "@types/http-proxy-middleware": "^1.0.0",
+    "@types/morgan": "^1.9.10",
+    "@types/sqlite3": "^5.1.0",
     "nodemon": "^3.1.11",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"

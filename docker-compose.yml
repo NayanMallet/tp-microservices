@@ -1,24 +1,34 @@
-version: '3.8'
 services:
   public-api:
+    env_file: .env
     build:
-      context: ./public-api
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: public-api/Dockerfile
     ports:
       - "3001:3001"
-    networks:
-      - microservices-net
+    networks: [microservices-net]
+
+  user-service:
+    platform: linux/amd64
+    env_file: .env
+    build:
+      context: .
+      dockerfile: user-service/Dockerfile
+    ports:
+      - "3002:3002"
+    networks: [microservices-net]
 
   api-gateway:
+    env_file: .env
     build:
-      context: ./api-gateway
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: api-gateway/Dockerfile
     ports:
       - "3000:3000"
     depends_on:
       - public-api
-    networks:
-      - microservices-net
+      - user-service
+    networks: [microservices-net]
 
 networks:
   microservices-net:

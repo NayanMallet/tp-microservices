@@ -1,19 +1,34 @@
-# api-gateway/Dockerfile
-
-# Étape de build
 FROM node:18-alpine AS builder
 WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
-RUN npm install
-COPY tsconfig.json ./
-COPY src ./src
-RUN npm run build
 
-# Étape production
+# Installer outils de compilation pour modules natifs
+RUN apk add --no-cache python3 build-base linux-headers
+
+COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
+COPY shared/package.json ./shared/package.json
+COPY api-gateway/package.json ./api-gateway/package.json
+
+RUN corepack enable \
+  && pnpm -r --filter ./api-gateway... install --frozen-lockfile
+
+COPY shared ./shared
+COPY api-gateway ./api-gateway
+RUN pnpm -r --filter ./api-gateway... run build
+
 FROM node:18-alpine AS production
 WORKDIR /app
-COPY package.json pnpm-lock.yaml ./
-RUN npm install --production
-COPY --from=builder /app/dist ./dist
+
+COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
+COPY api-gateway/package.json ./api-gateway/package.json
+COPY shared/package.json ./shared/package.json
+
+# Installer les dépendances de production uniquement pour le gateway
+RUN corepack enable \
+  && pnpm -r --filter ./api-gateway... install --prod --frozen-lockfile
+
+COPY --from=builder /app/api-gateway/dist ./api-gateway/dist
+COPY --from=builder /app/shared/dist ./shared/dist
+
+WORKDIR /app/api-gateway
 EXPOSE 3000
 CMD ["node", "dist/server.js"]
