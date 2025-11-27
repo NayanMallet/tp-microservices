@@ -1,33 +1,31 @@
 import { Request, Response } from 'express';
-import { Database } from 'sqlite';
+import type { DB } from '../config';
+import { createItemService } from '../services/itemService';
 
-export function getItems(db: Database) {
-    return async (req: Request, res: Response) => {
-        try {
-            const items = await db.all('SELECT * FROM items');
-            res.json(items);
-        } catch (err) {
-            console.error('Error fetching items:', err);
-            res.status(500).json({ error: 'Internal Server Error' });
-        }
-    };
-}
+export function createItemController(db: DB) {
+  const service = createItemService(db);
 
-export function createItem(db: Database) {
-    return async (req: Request, res: Response) => {
-        try {
-            const { name } = req.body;
-            if (!name || typeof name !== 'string') {
-                return res.status(400).json({ error: 'name is required' });
-            }
-            const result = await db.run(
-                'INSERT INTO items (name) VALUES (?)',
-                [name]
-            );
-            res.status(201).json({ id: result.lastID, name });
-        } catch (err) {
-            console.error('Error creating item:', err);
-            res.status(500).json({ error: 'Internal Server Error' });
-        }
-    };
+  return {
+    async list(req: Request, res: Response) {
+      try {
+        const items = await service.list();
+        res.json(items);
+      } catch (err) {
+        console.error('Error fetching items:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+    },
+
+    async create(req: Request, res: Response) {
+      try {
+        const { name } = req.body;
+        const item = await service.create(name);
+        res.status(201).json(item);
+      } catch (err: any) {
+        if (err.message === 'name is required') return res.status(400).json({ error: 'name is required' });
+        console.error('Error creating item:', err);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+    }
+  };
 }

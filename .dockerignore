@@ -1,0 +1,30 @@
+# Root .dockerignore
+# Exclut les dossiers de données (persistés hors des images)
+data/
+
+# Node modules and build output
+node_modules/
+**/node_modules/
+dist/
+build/
+
+# Env and secrets
+.env
+.env.*
+
+# VCS
+.git
+.gitignore
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+
+# Logs
+logs/
+*.log
+
+# other
+npm-debug.log*
+

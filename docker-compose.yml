@@ -16,6 +16,15 @@ services:
       dockerfile: user-service/Dockerfile
     ports:
       - "3002:3002"
+    environment:
+      - USER_DB_FILE=/data/user-service/database.sqlite
+    volumes:
+      - ./data/user-service:/data/user-service
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3002/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks: [microservices-net]
 
   item-service:
@@ -26,6 +35,15 @@ services:
       dockerfile: item-service/Dockerfile
     ports:
       - "3003:3003"
+    environment:
+      - ITEM_DB_FILE=/data/item-service/database.sqlite
+    volumes:
+      - ./data/item-service:/data/item-service
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3003/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks: [ microservices-net ]
 
   api-gateway:

@@ -1,25 +1,9 @@
 import 'dotenv/config';
 import express from 'express';
 import morgan from 'morgan';
-import { open, Database } from 'sqlite';
-import sqlite3 from 'sqlite3';
+import { setupDb } from './config';
 import { createCorsMiddleware } from 'shared';
 import userRoutes from './routes/userRoutes';
-
-async function setupDb(): Promise<Database> {
-    const db = await open({
-        filename: './database.sqlite',
-        driver: sqlite3.Database
-    });
-    await db.run(`
-        CREATE TABLE IF NOT EXISTS users (
-             id INTEGER PRIMARY KEY AUTOINCREMENT,
-             name TEXT,
-             email TEXT
-        )
-    `);
-    return db;
-}
 
 (async () => {
     const app = express();
@@ -29,6 +13,7 @@ async function setupDb(): Promise<Database> {
     app.use( createCorsMiddleware() );
     app.use(express.json());
     app.use(morgan('dev'));
+    app.get('/health', (_req, res) => res.json({ status: 'ok' }));
     app.use('/', userRoutes(db));
 
     app.listen(PORT, () => {
