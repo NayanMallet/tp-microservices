@@ -49,3 +49,6 @@ docker-compose.override.yml
 
 # Husky
 .husky/
+/user-service/database.sqlite
+/item-service/database.sqlite
+data/
