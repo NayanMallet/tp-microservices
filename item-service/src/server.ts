@@ -13,6 +13,8 @@ import { setupDb } from './config';
     app.use( createCorsMiddleware() );
     app.use(express.json());
     app.use(morgan('dev'));
+    // health endpoint for docker
+    app.get('/health', (_req, res) => res.json({ status: 'ok' }));
     app.use('/', itemRoutes(db));
 
     app.listen(PORT, () => {
