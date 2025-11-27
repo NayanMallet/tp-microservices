@@ -16,6 +16,10 @@ services:
       dockerfile: user-service/Dockerfile
     ports:
       - "3002:3002"
+    environment:
+      - USER_DB_FILE=/app/user-service/database.sqlite
+    volumes:
+      - ./data/user-service:/app/user-service
     networks: [microservices-net]
 
   item-service:
@@ -26,6 +30,10 @@ services:
       dockerfile: item-service/Dockerfile
     ports:
       - "3003:3003"
+    environment:
+      - ITEM_DB_FILE=/app/item-service/database.sqlite
+    volumes:
+      - ./data/item-service:/app/item-service
     networks: [ microservices-net ]
 
   api-gateway:
