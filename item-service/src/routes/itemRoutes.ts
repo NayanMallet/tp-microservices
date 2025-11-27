@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import type { Database } from 'sqlite';
+import type { DB } from '../config';
 import { createItemController } from '../controllers/itemController';
 
-export default function itemRoutes(db: Database) {
+export default function itemRoutes(db: DB) {
   const router = Router();
   const controller = createItemController(db);
 
@@ -11,4 +11,3 @@ export default function itemRoutes(db: Database) {
 
   return router;
 }
-

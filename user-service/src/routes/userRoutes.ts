@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import type { Database } from 'sqlite';
+import type { DB } from '../config';
 import { createUserController } from '../controllers/userController';
 import { requireAuth } from '../middlewares/authMiddleware';
 
-export default function userRoutes(db: Database) {
+export default function userRoutes(db: DB) {
   const router = Router();
   const controller = createUserController(db);
 
@@ -13,4 +13,3 @@ export default function userRoutes(db: Database) {
 
   return router;
 }
-

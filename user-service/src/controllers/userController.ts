@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import type { User } from '../types/user';
-import type { Database } from 'sqlite';
+import type { DB } from '../config';
 import { createUserModel } from '../models/userModel';
 import { AuthService } from '../services/authService';
 
-export function createUserController(db: Database) {
+export function createUserController(db: DB) {
   const model = createUserModel(db);
 
   return {
@@ -45,4 +45,3 @@ export function createUserController(db: Database) {
     }
   };
 }
-

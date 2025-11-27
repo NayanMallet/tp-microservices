@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import type { Database } from 'sqlite';
+import type { DB } from '../config';
 import { createItemService } from '../services/itemService';
 
-export function createItemController(db: Database) {
+export function createItemController(db: DB) {
   const service = createItemService(db);
 
   return {

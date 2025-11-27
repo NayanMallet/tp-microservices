@@ -1,7 +1,8 @@
 import type { Database } from 'sqlite';
+import type { DB } from '../config';
 import type { Item } from '../types/item';
 
-export function createItemModel(db: Database) {
+export function createItemModel(db: DB) {
   return {
     async getAll(): Promise<Item[]> {
       const rows = await db.all('SELECT id, name FROM ' + 'items');

@@ -1,9 +1,9 @@
-import type { Database } from 'sqlite';
+import type { DB } from '../config';
 import { createItemModel } from '../models/itemModel';
 import type { Item } from '../types/item';
 import { v4 as uuidv4 } from 'uuid';
 
-export function createItemService(db: Database) {
+export function createItemService(db: DB) {
   const model = createItemModel(db);
 
   return {

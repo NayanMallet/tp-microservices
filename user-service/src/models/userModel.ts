@@ -1,7 +1,7 @@
-import type { Database } from 'sqlite';
+import type { DB } from '../config';
 import type { User } from '../types/user';
 
-export function createUserModel(db: Database) {
+export function createUserModel(db: DB) {
   return {
     async getAll(): Promise<Omit<User, 'password'>[]> {
       const rows = await db.all('SELECT id, name, email FROM users');
@@ -21,4 +21,3 @@ export function createUserModel(db: Database) {
     }
   };
 }
-
