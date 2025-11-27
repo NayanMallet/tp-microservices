@@ -18,6 +18,16 @@ services:
       - "3002:3002"
     networks: [microservices-net]
 
+  item-service:
+    platform: linux/amd64
+    env_file: .env
+    build:
+      context: .
+      dockerfile: item-service/Dockerfile
+    ports:
+      - "3003:3003"
+    networks: [ microservices-net ]
+
   api-gateway:
     env_file: .env
     build:

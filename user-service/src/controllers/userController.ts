@@ -17,6 +17,9 @@ export function createUser(db: Database) {
     return async (req: Request, res: Response) => {
         try {
             const { name, email } = req.body;
+            if (!name || typeof name !== 'string' || !email || typeof email !== 'string') {
+                return res.status(400).json({ error: 'name and email are required' });
+            }
             const result = await db.run(
                 'INSERT INTO users (name, email) VALUES (?, ?)',
                 [name, email]
