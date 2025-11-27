@@ -17,9 +17,9 @@ services:
     ports:
       - "3002:3002"
     environment:
-      - USER_DB_FILE=/app/user-service/database.sqlite
+      - USER_DB_FILE=/data/user-service/database.sqlite
     volumes:
-      - ./data/user-service:/app/user-service
+      - ./data/user-service:/data/user-service
     networks: [microservices-net]
 
   item-service:
@@ -31,9 +31,9 @@ services:
     ports:
       - "3003:3003"
     environment:
-      - ITEM_DB_FILE=/app/item-service/database.sqlite
+      - ITEM_DB_FILE=/data/item-service/database.sqlite
     volumes:
-      - ./data/item-service:/app/item-service
+      - ./data/item-service:/data/item-service
     networks: [ microservices-net ]
 
   api-gateway:
