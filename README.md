@@ -8,6 +8,9 @@
 # Docker Setup
 ```docker-compose up --build```
 
+# Address to run the website
+```localhost:8080```
+
 # Documentation
 
 ##  **Contexte du projet**
