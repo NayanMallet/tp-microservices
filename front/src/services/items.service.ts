@@ -1,13 +1,11 @@
 import { http } from './http'
 import type { Item } from '@/types/item'
-
-const API_GATEWAY_BASE_URL = 'http://localhost:3000'
-const ITEM_SERVICE_BASE_URL = 'http://localhost:3003'
+import { apiEndpoints } from '@/config/api'
 
 export async function fetchItems(): Promise<Item[]> {
-  return http.get<Item[]>(`${API_GATEWAY_BASE_URL}/api/items`)
+  return http.get<Item[]>(apiEndpoints.items.list)
 }
 
 export async function createItem(payload: { name: string }): Promise<Item> {
-  return http.post<Item>(`${ITEM_SERVICE_BASE_URL}/items`, payload)
+  return http.post<Item>(apiEndpoints.items.create, payload)
 }

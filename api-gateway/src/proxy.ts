@@ -1,6 +1,7 @@
 import { RequestHandler } from 'express';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
+// TODO: Move service URLs to environment variables or config files
 const USER_SERVICE = 'http://user-service:3002';
 const ITEM_SERVICE = 'http://item-service:3003';
 

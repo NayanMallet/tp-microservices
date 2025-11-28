@@ -1,13 +1,11 @@
 import { http } from './http'
 import type { User } from '@/types/user'
-
-const API_GATEWAY_BASE_URL = 'http://localhost:3000'
-const USER_SERVICE_BASE_URL = 'http://localhost:3002'
+import { apiEndpoints } from '@/config/api'
 
 export async function fetchUsers(): Promise<User[]> {
-  return http.get<User[]>(`${API_GATEWAY_BASE_URL}/api/users`)
+  return http.get<User[]>(apiEndpoints.users.list)
 }
 
-export async function createUser(payload: { name: string; email: string }): Promise<User> {
-  return http.post<User>(`${USER_SERVICE_BASE_URL}/users`, payload)
+export async function createUser(payload: { name: string; email: string; password: string }): Promise<User> {
+  return http.post<User>(apiEndpoints.users.create, payload)
 }
