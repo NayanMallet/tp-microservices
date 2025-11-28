@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Item } from '@/types/api'
+import type { Item } from '@/types/item'
 import {
   Card,
   CardContent,
@@ -20,7 +20,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <Card class="h-full">
+  <Card class="h-max">
     <CardHeader class="flex flex-row items-center justify-between">
       <div>
         <CardTitle class="text-base">
