@@ -4,3 +4,4 @@ packages:
   - user-service
   - public-api
   - item-service
+  - front
