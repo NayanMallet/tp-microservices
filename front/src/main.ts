@@ -9,4 +9,6 @@ const app = createApp(App)
 app.use(createPinia())
 app.use(router)
 
+import './style.css'
+
 app.mount('#app')
